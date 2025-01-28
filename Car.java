@@ -1,9 +1,11 @@
 import java.awt.*;
 
-public abstract class Car {
+public abstract class Car implements Movable{
     public int nrDoors; // Number of doors on the car
     public double enginePower; // Engine power of the car
     public double currentSpeed; // The current speed of the car
+    private int dirAngle; // The current direction of the car
+    private Point position;
     public Color color; // Color of the car
     public String modelName; // The car model name
 
@@ -11,6 +13,8 @@ public abstract class Car {
         this.nrDoors=nrDoors;
         this.enginePower=enginePower;
         this.currentSpeed=currentSpeed;
+        this.dirAngle = 90;
+        this.position = new Point(0,0);
         this.color=color;
         this.modelName=modelName;
         stopEngine();
@@ -26,6 +30,14 @@ public abstract class Car {
 
     public double getCurrentSpeed(){
         return currentSpeed;
+    }
+
+    public Point getPosition(){
+        return position;
+    }
+
+    public int getDirection() {
+        return dirAngle;
     }
 
     public Color getColor(){
@@ -56,14 +68,51 @@ public abstract class Car {
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
 
-    // TODO fix this method according to lab pm
-    public void gas(double amount){
-        incrementSpeed(amount);
+    private void setPosition(double x, double y) {
+        position.setLocation(x,y);
     }
 
-    // TODO fix this method according to lab pm
+    private void setDirection(int dir) {
+        dirAngle = dir;
+    }
+
+    public void move() {
+        setPosition(getPosition().getX() + (getCurrentSpeed() * Math.cos(getDirection())), 
+                    getPosition().getY() + (getCurrentSpeed() * Math.sin(getDirection())));
+    }
+
+    public void turnLeft() {
+        setDirection(getDirection() + 10);
+    }
+
+    public void turnRight() {
+        setDirection(getDirection() - 10);
+    }
+
+    // Increase currentspeed
+    public void gas(double amount){
+        if (amount <= 0 || amount >= 1) {
+            if (getCurrentSpeed()+amount <= getEnginePower()) {
+                incrementSpeed(amount);
+            } else {
+                this.currentSpeed = getEnginePower();
+            }
+        } else {
+            System.out.println("Invalid input: gas only accepts values in the interval [0,1].");
+        }
+    }
+
+    // Decrease currentspeed
     public void brake(double amount){
-        decrementSpeed(amount);
+        if (amount <= 0 || amount >= 1) {
+            if (getCurrentSpeed()-amount >= 0) {
+                decrementSpeed(amount);
+            } else {
+                this.currentSpeed = 0;
+            }
+        } else {
+            System.out.println("Invalid input: brake only accepts values in the interval [0,1].");
+        }
     }
 
 }
