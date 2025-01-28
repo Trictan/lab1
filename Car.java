@@ -32,11 +32,11 @@ public abstract class Car implements Movable{
         return currentSpeed;
     }
 
-    public Point getPosition(){
+    private Point getPosition(){
         return position;
     }
 
-    public int getDirection() {
+    private int getDirection() {
         return dirAngle;
     }
 

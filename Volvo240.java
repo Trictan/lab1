@@ -8,7 +8,7 @@ public class Volvo240 extends Car{
         super(nrDoors, enginePower, currentSpeed, color, modelName);
     }
     
-    double speedFactor(){
+    private double speedFactor(){
         return enginePower * 0.01 * trimFactor;
     }
 }
