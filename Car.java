@@ -20,7 +20,7 @@ public abstract class Car {
     public int getNrDoors(){
         return nrDoors;
     }
-    public double getEnginePower(){
+    private double getEnginePower(){
         return enginePower;
     }
 
@@ -32,7 +32,7 @@ public abstract class Car {
         return color;
     }
 
-    public void setColor(Color clr){
+    private void setColor(Color clr){
 	    color = clr;
     }
 
@@ -44,15 +44,15 @@ public abstract class Car {
 	    currentSpeed = 0;
     }
     
-    public double speedFactor(){
+    private double speedFactor(){
         return enginePower * 0.01;
     }
 
-    public void incrementSpeed(double amount){
+    private void incrementSpeed(double amount){
 	    currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
     }
 
-    public void decrementSpeed(double amount){
+    private void decrementSpeed(double amount){
         currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount,0);
     }
 
