@@ -1,3 +1,5 @@
 public class skob {
-    system.out.println(2);
-}
+    public static void Main(String[] args){
+    System.out.println(2);
+}}
+jjgjgjgjjjgjgj
