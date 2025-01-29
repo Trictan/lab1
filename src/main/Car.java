@@ -25,7 +25,7 @@ public abstract class Car implements Movable{
     public int getNrDoors(){
         return nrDoors;
     }
-    private double getEnginePower(){
+    public double getEnginePower(){
         return enginePower;
     }
 
@@ -33,11 +33,11 @@ public abstract class Car implements Movable{
         return currentSpeed;
     }
 
-    private Point getPosition(){
+    public Point getPosition(){
         return position;
     }
 
-    private int getDirection() {
+    public int getDirection() {
         return dirAngle;
     }
 
@@ -57,7 +57,7 @@ public abstract class Car implements Movable{
 	    currentSpeed = 0;
     }
     
-    private double speedFactor(){
+    public double speedFactor(){
         return enginePower * 0.01;
     }
 
@@ -78,41 +78,41 @@ public abstract class Car implements Movable{
     }
 
     public void move() {
-        setPosition(getPosition().getX() + (getCurrentSpeed() * Math.cos(getDirection())), 
-                    getPosition().getY() + (getCurrentSpeed() * Math.sin(getDirection())));
+        setPosition(getPosition().getX() + (getCurrentSpeed() * Math.cos(getDirection() * (Math.PI/180))), 
+                    getPosition().getY() + (getCurrentSpeed() * Math.sin(getDirection() * (Math.PI/180))));
     }
 
     public void turnLeft() {
-        setDirection(getDirection() + 10);
+        setDirection(getDirection() + 5);
     }
 
     public void turnRight() {
-        setDirection(getDirection() - 10);
+        setDirection(getDirection() - 5);
     }
 
     // Increase currentspeed
     public void gas(double amount){
-        if (amount <= 0 || amount >= 1) {
+        if (amount < 0 || amount > 1) {
+            System.out.println("Invalid input: gas only accepts values in the interval [0,1].");
+        } else {
             if (getCurrentSpeed()+amount <= getEnginePower()) {
                 incrementSpeed(amount);
             } else {
                 this.currentSpeed = getEnginePower();
             }
-        } else {
-            System.out.println("Invalid input: gas only accepts values in the interval [0,1].");
         }
     }
 
     // Decrease currentspeed
     public void brake(double amount){
-        if (amount <= 0 || amount >= 1) {
+        if (amount < 0 || amount > 1) {
+            System.out.println("Invalid input: brake only accepts values in the interval [0,1].");
+        } else {
             if (getCurrentSpeed()-amount >= 0) {
                 decrementSpeed(amount);
             } else {
                 this.currentSpeed = 0;
             }
-        } else {
-            System.out.println("Invalid input: brake only accepts values in the interval [0,1].");
         }
     }
 

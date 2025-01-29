@@ -3,10 +3,11 @@ import java.awt.*;
 
 public class Saab95 extends Car{
 
-    private boolean turboOn;
+    public boolean turboOn;
 
-    public Saab95(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName, Boolean TurboOn){
+    public Saab95(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName, Boolean turboOn){
         super(nrDoors, enginePower, currentSpeed, color, modelName);
+        this.turboOn = turboOn;
     }
 
     public void setTurboOn(){
@@ -17,7 +18,7 @@ public class Saab95 extends Car{
 	    turboOn = false;
     }
     
-    private double speedFactor(){
+    public double speedFactor(){
         double turbo = 1;
         if(turboOn) turbo = 1.3;
         return enginePower * 0.01 * turbo;
