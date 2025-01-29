@@ -95,11 +95,7 @@ public abstract class Car implements Movable{
         if (amount < 0 || amount > 1) {
             System.out.println("Invalid input: gas only accepts values in the interval [0,1].");
         } else {
-            if (getCurrentSpeed()+amount <= getEnginePower()) {
-                incrementSpeed(amount);
-            } else {
-                this.currentSpeed = getEnginePower();
-            }
+            incrementSpeed(amount);
         }
     }
 
@@ -108,11 +104,7 @@ public abstract class Car implements Movable{
         if (amount < 0 || amount > 1) {
             System.out.println("Invalid input: brake only accepts values in the interval [0,1].");
         } else {
-            if (getCurrentSpeed()-amount >= 0) {
-                decrementSpeed(amount);
-            } else {
-                this.currentSpeed = 0;
-            }
+            decrementSpeed(amount);
         }
     }
 
