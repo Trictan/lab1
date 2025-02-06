@@ -1,16 +1,15 @@
-package src.main;
+package Extra;
 import javax.swing.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import src.main.Volvo240;
 
 import java.awt.*;
-import java.util.*;
 
 public class DrawCar extends Component{    
     Volvo240 myVolvo;
 
     public DrawCar() {
-        this.myVolvo = new Volvo240(3, 100, 0, new Color(255,0,0,0), "Volvo");
+        this.myVolvo = new Volvo240(new Color(255,0,0,0));
     }
     
     @Override
@@ -30,5 +29,5 @@ public class DrawCar extends Component{
     }//main
 
 
-}//DrawPolygons
+}
 
