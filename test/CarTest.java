@@ -4,9 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color; import java.awt.Point;
 import org.junit.jupiter.api.Test;
 
+import src.main.Car;
 import src.main.Saab95;
 import src.main.Volvo240;
 import src.main.Scania;
+import src.main.Truck;
 
 class CarTest {
     @Test
@@ -45,6 +47,16 @@ class CarTest {
         assertEquals(1.5, myScania.getCurrentSpeed(), 0.01); // moving
         myScania.increaseIncline();
         assertEquals(0, myScania.getIncline());  // can't incline while moving
+    }
+
+    @Test
+    void boolean_test() {
+        Scania myScania = new Scania(new Color(255,0,0,0));
+        Boolean d = true;
+        if (d == true) {
+            //System.out.println(myScania.getClass().getSuperclass() == Car.class);
+            System.out.println(myScania.getClass().getSuperclass().equals(Car.class));
+        }
     }
 }
 

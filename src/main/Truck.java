@@ -1,7 +1,7 @@
 package src.main;
 import java.awt.*;
 
-public abstract class Truck extends Car {
+public class Truck extends Car {
 
     private int incline = 0;
 

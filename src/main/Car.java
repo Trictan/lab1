@@ -21,6 +21,9 @@ public abstract class Car implements Movable{
         stopEngine();
     }
 
+    protected void follow(CarCarrier cc) {
+        this.setPosition(cc.getPosition().getX(), cc.getPosition().getY());
+    }
     
     public int getNrDoors(){
         return nrDoors;
