@@ -1,26 +1,30 @@
 
-package src.main;
+package Extra;
 import java.awt.Color;
 import java.awt.event.*;
 import javax.swing.*;
 
+import src.main.Saab95;
+import src.main.Volvo240;
+
 public class MyFrame extends JFrame implements KeyListener{
 
 	Volvo240 myVolvo;
+	Saab95 mySaab;
 	JLabel label;
 	ImageIcon icon;
 	
 	MyFrame(){		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500,500);
+		this.setSize(1000,1000);
 		this.setLayout(null);
 		this.addKeyListener(this);
-		this.myVolvo = new Volvo240(3, 100, 0, new Color(255,0,0,0), "Volvo");
+		this.myVolvo = new Volvo240(new Color(255,0,0,0));
 		
 		icon = new ImageIcon("icon.png");
 		
 		label = new JLabel();
-		label.setBounds(0, 0, 50, 50);
+		label.setBounds(0, 0, 100, 100);
 		label.setIcon(icon);
 		//label.setBackground(Color.red);
 		//label.setOpaque(true);
