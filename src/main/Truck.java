@@ -1,12 +1,15 @@
 package src.main;
 import java.awt.*;
 
-public class Truck extends Car {
+public abstract class Truck extends Car {
 
-    private int incline = 0;
+    private int incline;
+    private int maxIncline;
 
     public Truck(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName) {
         super(nrDoors, enginePower, currentSpeed, color, modelName);
+        this.incline = 0;
+        this.maxIncline = 70;
     }
 
     @Override
@@ -18,7 +21,7 @@ public class Truck extends Car {
 
     public void increaseIncline() {
         if (getCurrentSpeed() == 0) {
-            incline = Math.min(incline+5,70);
+            incline = Math.min(incline+5,maxIncline);
         }
     }
 
@@ -28,5 +31,13 @@ public class Truck extends Car {
 
     public int getIncline() {
         return incline;
+    }
+
+    public int getMaxIncline() {
+        return maxIncline;
+    }
+
+    protected void setIncline(int newIncline) {
+        incline = newIncline;
     }
 }
