@@ -49,14 +49,5 @@ class CarTest {
         assertEquals(0, myScania.getIncline());  // can't incline while moving
     }
 
-    @Test
-    void boolean_test() {
-        Scania myScania = new Scania(new Color(255,0,0,0));
-        Boolean d = true;
-        if (d == true) {
-            //System.out.println(myScania.getClass().getSuperclass() == Car.class);
-            System.out.println(myScania.getClass().getSuperclass().equals(Car.class));
-        }
-    }
 }
 

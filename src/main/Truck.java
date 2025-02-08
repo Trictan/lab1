@@ -13,6 +13,11 @@ public abstract class Truck extends Car {
     }
 
     @Override
+    public boolean isPickupable() {
+        return false;
+    }
+
+    @Override
     public void gas(double amount) {
         if (getIncline() == 0) {
             super.gas(amount);

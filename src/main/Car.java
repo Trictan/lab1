@@ -21,7 +21,11 @@ public abstract class Car implements Movable{
         stopEngine();
     }
 
-    protected void follow(CarCarrier cc) {
+    public boolean isPickupable() {
+        return true;
+    }
+
+    protected void towedBy(CarCarrier cc) {
         this.setPosition(cc.getPosition().getX(), cc.getPosition().getY());
     }
     

@@ -46,9 +46,9 @@ public class CarCarrier extends Truck{
     }
 
     public void loadCar(Car car) {
-        if ((getIncline() == 0) && (load.length < capacity)) { // lowered and has space
-            if (car.getClass().getSuperclass().equals(Car.class)) { // is a car
-                if (isClose(car)) { // in proximity
+        if (getIncline() == 0 && load.length < capacity) { // lowered and has space
+            if (car.isPickupable()) {
+                if (isClose(car)) {
                     load[loadIndex] = car;
                 }
             }
@@ -56,14 +56,14 @@ public class CarCarrier extends Truck{
     }
 
     public void unloadCar() {
-        load[loadIndex] = null;
+        loadIndex = Math.min(0,loadIndex-1);  // flytta pekare
         // move car?
     }
 
     @Override
     public void move() {
         super.move();
-        for (int i = 0; i < load.length; i++) {
+        for (int i = 0; i < load.length; i++) { // OBS loopa endast till pekaren
             load[i].towedBy(this);
         }
     }
