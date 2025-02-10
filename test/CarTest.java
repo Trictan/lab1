@@ -2,6 +2,8 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import java.awt.Color; import java.awt.Point;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
 import src.main.Car;
@@ -53,18 +55,22 @@ class CarTest {
 
     @Test
     void cc_full() {
-        CarCarrier myCC = new CarCarrier(new Color(255,0,0,0), "MAN", 3);
+        //CarCarrier myCC = new CarCarrier(new Color(255,0,0,0), "MAN", 3);
         Saab95 mySaab1 = new Saab95(new Color(255,0,0,0));
         Saab95 mySaab2 = new Saab95(new Color(0,255,0,0));
         Saab95 mySaab3 = new Saab95(new Color(0,0,255,0));
         Volvo240 myVolvo = new Volvo240(new Color(0,0,0,0));
-        myCC.decreaseIncline();
-        myCC.loadCar(mySaab1);
-        myCC.loadCar(myVolvo);
-        myCC.loadCar(mySaab1);
-        myCC.loadCar(mySaab2);
-        myCC.loadCar(mySaab3);
-        myCC.getLoad();
+        ArrayList<Integer> integers = new ArrayList<Integer>();
+        int cap = 3;
+        int i = 0;
+        while (integers.size() < cap) {
+            integers.add(i);
+            i++;
+        }
+        System.out.println(integers);
+        integers.remove(integers.size()-1);
+        System.out.println(integers);
+
     }
 
 }

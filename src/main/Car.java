@@ -40,7 +40,7 @@ public abstract class Car implements Movable{
         towed = false;
     }
 
-    protected void towedBy(CarCarrier cc) {
+    protected void towedBy(Carrier cc) {
         this.setPosition(cc.getPosition().getX(), cc.getPosition().getY());
     }
 
@@ -78,7 +78,7 @@ public abstract class Car implements Movable{
     }
 
     public void startEngine(){
-	    currentSpeed = 0.1;
+        currentSpeed = 0.1;
     }
 
     public void stopEngine(){
@@ -90,7 +90,9 @@ public abstract class Car implements Movable{
     }
 
     private void incrementSpeed(double amount){
-	    currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
+        if (!isTowed()) {
+	        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount,enginePower);
+        }
     }
 
     private void decrementSpeed(double amount){
