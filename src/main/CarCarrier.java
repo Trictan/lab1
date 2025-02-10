@@ -8,12 +8,18 @@ public class CarCarrier extends Truck{
     private Car[] load;
     private int loadIndex;
 
-    CarCarrier(Color color, String modelname, int capacity) {
+    public CarCarrier(Color color, String modelname, int capacity) {
         super(2, 100, 0, color, modelname);
-            this.capacity = capacity;
-            this.load = new Car[capacity];
-            this.loadIndex = 0;
-            setIncline(getMaxIncline());
+        this.capacity = capacity;
+        this.load = new Car[capacity];
+        this.loadIndex = -1;
+        setIncline(getMaxIncline());
+    }
+
+    public void getLoad() {
+        for (int i = 0; i < loadIndex+1; i++) { // OBS loopa endast till pekaren
+            System.out.println(load[i].getModelName());
+        }
     }
 
     @Override
@@ -46,24 +52,27 @@ public class CarCarrier extends Truck{
     }
 
     public void loadCar(Car car) {
-        if (getIncline() == 0 && load.length < capacity) { // lowered and has space
-            if (car.isPickupable()) {
+        if (getIncline() == 0 && loadIndex < capacity-1) { // lowered and has space
+            if (car.isTowable() && !car.isTowed()) { // car is ok to pickup
                 if (isClose(car)) {
+                    loadIndex += 1;
                     load[loadIndex] = car;
+                    car.setTowed();
                 }
             }
         }
     }
 
     public void unloadCar() {
-        loadIndex = Math.min(0,loadIndex-1);  // flytta pekare
+        load[loadIndex].setNotTowed();
+        loadIndex = Math.max(-1,loadIndex-1);  // flytta pekare
         // move car?
     }
 
     @Override
     public void move() {
         super.move();
-        for (int i = 0; i < load.length; i++) { // OBS loopa endast till pekaren
+        for (int i = 0; i < loadIndex+1; i++) { // OBS loopa endast till pekaren
             load[i].towedBy(this);
         }
     }

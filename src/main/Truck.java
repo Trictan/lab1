@@ -13,7 +13,7 @@ public abstract class Truck extends Car {
     }
 
     @Override
-    public boolean isPickupable() {
+    public boolean isTowable() {
         return false;
     }
 

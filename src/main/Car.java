@@ -9,6 +9,7 @@ public abstract class Car implements Movable{
     private Point position;
     private Color color; // Color of the car
     private String modelName; // The car model name
+    private boolean towed;
 
     public Car(int nrDoors, double enginePower, double currentSpeed, Color color, String modelName) {
         this.nrDoors=nrDoors;
@@ -21,14 +22,30 @@ public abstract class Car implements Movable{
         stopEngine();
     }
 
-    public boolean isPickupable() {
+    // TOW
+
+    public boolean isTowable() {
         return true;
+    }
+
+    public boolean isTowed() {
+        return towed;
+    }
+
+    public void setTowed() {
+        towed = true;
+    }
+
+    public void setNotTowed() {
+        towed = false;
     }
 
     protected void towedBy(CarCarrier cc) {
         this.setPosition(cc.getPosition().getX(), cc.getPosition().getY());
     }
-    
+
+    //
+
     public int getNrDoors(){
         return nrDoors;
     }

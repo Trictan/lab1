@@ -5,12 +5,14 @@ import java.awt.Color; import java.awt.Point;
 import org.junit.jupiter.api.Test;
 
 import src.main.Car;
+import src.main.CarCarrier;
 import src.main.Saab95;
 import src.main.Volvo240;
 import src.main.Scania;
 import src.main.Truck;
 
 class CarTest {
+
     @Test
     void scania_getters() {
         Scania myScania = new Scania(new Color(255,0,0,0));
@@ -47,6 +49,22 @@ class CarTest {
         assertEquals(1.5, myScania.getCurrentSpeed(), 0.01); // moving
         myScania.increaseIncline();
         assertEquals(0, myScania.getIncline());  // can't incline while moving
+    }
+
+    @Test
+    void cc_full() {
+        CarCarrier myCC = new CarCarrier(new Color(255,0,0,0), "MAN", 3);
+        Saab95 mySaab1 = new Saab95(new Color(255,0,0,0));
+        Saab95 mySaab2 = new Saab95(new Color(0,255,0,0));
+        Saab95 mySaab3 = new Saab95(new Color(0,0,255,0));
+        Volvo240 myVolvo = new Volvo240(new Color(0,0,0,0));
+        myCC.decreaseIncline();
+        myCC.loadCar(mySaab1);
+        myCC.loadCar(myVolvo);
+        myCC.loadCar(mySaab1);
+        myCC.loadCar(mySaab2);
+        myCC.loadCar(mySaab3);
+        myCC.getLoad();
     }
 
 }
