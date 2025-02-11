@@ -1,21 +1,29 @@
 package src.main;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class Carrier {
+public class Carrier<T extends Car> {
     private int capacity;
-    private Car[] load;
-    private int loadIndex;
+    private ArrayList<T> load;
     private Point position;
+
 
     public Carrier(int capacity, Point position) {
         this.capacity = capacity;
-        this.loadIndex = -1;
         this.position = position;
+        this.load = new ArrayList<T>();
     }
 
-    public int getLoadIndex() {
-        return loadIndex;
+    public int getCurrentCapacity() {
+        return load.size();
     }
+
+    public void getLoad() {
+        for (var i = 0; i < load.size(); i++) {
+            System.out.println(load.get(i));
+        }
+    }
+
 
     public boolean isClose(Car car) {
         double x_dif = car.getPosition().getX() - getPosition().getX();
@@ -28,9 +36,10 @@ public class Carrier {
 
     public void setPosition(double x, double y) {
         position.setLocation(x, y);
-        for (int i = 0; i < getLoadIndex()+1; i++) {
-            load[i].towedBy(this);
+        for (int i = 0; i < load.size(); i++) {
+            load.get(i).towedBy(this);
         }
+        
     }
 
     public Point getPosition() {
@@ -38,11 +47,10 @@ public class Carrier {
     }
 
     public void loadCar(Car car) {
-        if (loadIndex < capacity-1) { // has space
+        if (load.size() < capacity) { // has space
             if (car.isTowable() && !car.isTowed()) { // car is ok to pickup
                 if (isClose(car)) {
-                    loadIndex += 1;
-                    load[loadIndex] = car;
+                    load.add(car);
                     car.stopEngine();
                     car.setTowed();
                 }
@@ -50,10 +58,13 @@ public class Carrier {
         }
     }
 
-    public void unloadCar() {
-        if (loadIndex >= 0) {
-            load[loadIndex].setNotTowed();
-            loadIndex = Math.max(-1,loadIndex-1);  // flytta pekare
+    public void unloadCar(int index) {
+        if (getCurrentCapacity() > 0) {
+            if (index >= 0 && index < load.size()) {
+                System.out.println("OK");
+                load.get(index).setNotTowed();
+                load.remove(index);
+            }
         }
     }
 

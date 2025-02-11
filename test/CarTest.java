@@ -55,23 +55,32 @@ class CarTest {
 
     @Test
     void cc_full() {
-        //CarCarrier myCC = new CarCarrier(new Color(255,0,0,0), "MAN", 3);
+        CarCarrier myCC = new CarCarrier(new Color(255,0,0,0), "MAN", 3, new Point(0,0));
         Saab95 mySaab1 = new Saab95(new Color(255,0,0,0));
         Saab95 mySaab2 = new Saab95(new Color(0,255,0,0));
         Saab95 mySaab3 = new Saab95(new Color(0,0,255,0));
         Volvo240 myVolvo = new Volvo240(new Color(0,0,0,0));
-        ArrayList<Integer> integers = new ArrayList<Integer>();
-        int cap = 3;
-        int i = 0;
-        while (integers.size() < cap) {
-            integers.add(i);
-            i++;
-        }
-        System.out.println(integers);
-        integers.remove(integers.size()-1);
-        System.out.println(integers);
-
+        myCC.decreaseIncline();
+        System.out.println("Load");
+        myCC.loadCar(mySaab1);
+        myCC.loadCar(myVolvo);
+        myCC.loadCar(myVolvo);
+        myCC.loadCar(mySaab2);
+        myCC.loadCar(mySaab3);
+        myCC.getLoad();
+        System.out.println("Unload");
+        myCC.unloadCar();
+        myCC.unloadCar();
+        myCC.unloadCar();
+        myCC.getLoad();
+        myCC.unloadCar();
+        myCC.unloadCar();
+        myCC.unloadCar();
+        System.out.println("Reload");
+        myCC.loadCar(mySaab3);
+        myCC.getLoad();
     }
+
 
 }
 

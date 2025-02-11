@@ -1,17 +1,13 @@
 package src.main;
 import java.awt.*;
+import java.util.ArrayList;
 
-public class Workshop {
+public class Workshop<T extends Car> {
     private Carrier parent;
-    private Class<Car> whitelist;
-
+    private ArrayList<String> whitelist;
     public Workshop(int capacity, Point position, Class<Car> whitelist) {
         this.parent = new Carrier(capacity, position);
-        this.whitelist = whitelist;
-    }
-
-    public int getLoadIndex() {
-        return parent.getLoadIndex();
+        this.whitelist = new ArrayList<String>();
     }
 
     public boolean isClose(Car car) {
@@ -31,8 +27,8 @@ public class Workshop {
         parent.loadCar(car);
     }
 
-    public void unloadCar() {
-        parent.unloadCar();
+    public void unloadCar(int nr) {
+        parent.unloadCar(nr-1);
     }
 
 }

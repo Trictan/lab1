@@ -1,15 +1,20 @@
 package src.main;
 import java.awt.*;
 import java.math.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CarCarrier extends Truck {
     private Carrier parent;
 
-    public CarCarrier(Color color, String modelname, int capacity, int loadIndex, Point position) {
+    public CarCarrier(Color color, String modelname, int capacity, Point position) {
         super(2, 100, 0, color, modelname);
         this.parent = new Carrier(capacity, position);
         setIncline(getMaxIncline());
+    }
+
+    public void getLoad() {
+        parent.getLoad();
     }
 
     @Override
@@ -50,7 +55,7 @@ public class CarCarrier extends Truck {
 
     public void unloadCar() {
         if (getIncline() == 0) {
-            parent.unloadCar();
+            parent.unloadCar(parent.getCurrentCapacity()-1);
         }
     }
 
