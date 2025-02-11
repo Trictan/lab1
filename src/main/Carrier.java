@@ -14,9 +14,11 @@ public class Carrier<T extends Car> {
         this.load = new ArrayList<T>();
     }
 
+
     public int getCurrentCapacity() {
         return load.size();
     }
+
 
     public void getLoad() {
         for (var i = 0; i < load.size(); i++) {
@@ -25,7 +27,7 @@ public class Carrier<T extends Car> {
     }
 
 
-    public boolean isClose(Car car) {
+    public boolean isClose(T car) {
         double x_dif = car.getPosition().getX() - getPosition().getX();
         double y_dif = car.getPosition().getY() - getPosition().getY();
         double r = Math.sqrt(Math.pow(x_dif, 2)+Math.pow(y_dif, 2));
@@ -46,7 +48,7 @@ public class Carrier<T extends Car> {
         return position;
     }
 
-    public void loadCar(Car car) {
+    public void loadCar(T car) {
         if (load.size() < capacity) { // has space
             if (car.isTowable() && !car.isTowed()) { // car is ok to pickup
                 if (isClose(car)) {
@@ -58,14 +60,15 @@ public class Carrier<T extends Car> {
         }
     }
 
-    public void unloadCar(int index) {
-        if (getCurrentCapacity() > 0) {
+    public T unloadCar(int index) {
+        if (load.size() > 0) {
             if (index >= 0 && index < load.size()) {
-                System.out.println("OK");
-                load.get(index).setNotTowed();
+                T outputCar = load.get(index);
+                outputCar.setNotTowed();
                 load.remove(index);
-            }
-        }
+                return outputCar;
+            } else {throw new java.lang.Error("Could not find car. Index out of range.");}
+        } else {throw new java.lang.Error("There are no cars to unload.");}
     }
 
 }
