@@ -18,6 +18,82 @@ import src.main.Truck;
 class CarTest {
 
     @Test
+    void volvo240_getters() {
+        Volvo240 myVolvo = new Volvo240(new Color(255,0,0,0));
+        assertEquals(4, myVolvo.getNrDoors());
+        assertEquals(100, myVolvo.getEnginePower(),0.1);
+        assertEquals(0, myVolvo.getCurrentSpeed(),0.1);
+        assertEquals(new Color(255,0,0,0), myVolvo.getColor());
+        assertEquals(new Point(0, 0), myVolvo.getPosition());
+        assertEquals(90, myVolvo.getDirection());
+    }
+
+    @Test
+    void saab95_getters() {
+        Saab95 mySaab = new Saab95(new Color(0,255,0,0));
+        assertEquals(2, mySaab.getNrDoors());
+        assertEquals(100, mySaab.getEnginePower(),0.1);
+        assertEquals(0, mySaab.getCurrentSpeed(),0.1);
+        assertEquals(new Color(0,255,0,0), mySaab.getColor());
+        assertEquals(new Point(0, 0), mySaab.getPosition());
+        assertEquals(90, mySaab.getDirection());
+    }
+
+    @Test
+    void volvo240_gas() {
+        Volvo240 myVolvo = new Volvo240(new Color(255,0,0,0));
+        // Volvo240 does not accept input outside [0,1].
+        myVolvo.gas(1.1);
+        assertEquals(0, myVolvo.getCurrentSpeed(),0.01);
+        myVolvo.gas(-0.1);
+        assertEquals(0, myVolvo.getCurrentSpeed(),0.01);
+        // Volvo240 correctly increases speed using "trimFactor".
+        myVolvo.gas(0.5);
+        assertEquals(0.625, myVolvo.getCurrentSpeed(),0.01); // 0.5 ∈ [0,1]  -> spd = 0 + 0.5* 1.25 (trimFactor) = 0.725
+    }
+
+    @Test
+    void volvo240_speed() {
+        Volvo240 myVolvo = new Volvo240(new Color(255,0,0,0));
+        // Speed can't be negative
+        for (var i=0; i<12;i++) {myVolvo.brake(0.5);}
+        assertEquals(0, myVolvo.getCurrentSpeed(),0.01);
+
+        // Speed can't exceed Enginepower
+        for (var i=0; i<120;i++) {myVolvo.gas(0.9);}
+        assertEquals(myVolvo.getEnginePower(), myVolvo.getCurrentSpeed(),0.01);
+    }
+
+    @Test
+    void volvo240_turn_LR() {
+        Volvo240 myVolvo = new Volvo240(new Color(255,0,0,0));
+        for (var i=0; i<9;i++) {myVolvo.turnRight();}
+        assertEquals(45, myVolvo.getDirection());
+        for (var i=0; i<18;i++) {myVolvo.turnRight();}
+        assertEquals(-45, myVolvo.getDirection());
+    }
+
+    @Test
+    void volvo240_move_forward() {
+        Volvo240 myVolvo = new Volvo240(new Color(255,0,0,0));
+        for (var i=0; i<120;i++) {myVolvo.gas(0.9);}
+        // Observe, car is facing east.
+        myVolvo.move();
+        // Sucessfully moved forward at max speed.
+        assertEquals(new Point(0,100), myVolvo.getPosition());
+    }
+
+    @Test
+    void volvo240_move_diagonal() {
+        Volvo240 myVolvo = new Volvo240(new Color(255,0,0,0));
+        for (var i=0; i<9;i++) {myVolvo.turnRight();}
+        for (var i=0; i<120;i++) {myVolvo.gas(0.9);}
+        myVolvo.move();
+        // Sucessfully moved diagonally at max speed.
+        assertEquals(new Point(71,71), myVolvo.getPosition());
+    }
+
+    @Test
     void scania_getters() {
         Scania myScania = new Scania(new Color(255,0,0,0));
         assertEquals(2, myScania.getNrDoors());
@@ -56,7 +132,7 @@ class CarTest {
     }
 
     @Test
-    void cc_full() {
+    void cc() {
         CarCarrier myCC = new CarCarrier(new Color(255,0,0,0), "MAN", 3, new Point(0,0));
         CarCarrier myCC2 = new CarCarrier(new Color(255,0,0,0), "MAN", 2, new Point(0,0));
         Saab95 mySaab1 = new Saab95(new Color(255,0,0,0));

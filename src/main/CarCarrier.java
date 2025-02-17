@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CarCarrier extends Truck {
-    private Carrier parent;
+    private Carrier<Car> parent;
 
     public CarCarrier(Color color, String modelname, int capacity, Point position) {
         super(2, 100, 0, color, modelname);

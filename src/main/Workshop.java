@@ -31,7 +31,7 @@ public class Workshop<T extends Car> {
         }
     }
 
-    public void unloadCar(int nr) {
+    public T unloadCar(int nr) {
         T unloadedCar = parent.unloadCar(nr-1);
         System.out.println(
         "Model name: " + unloadedCar.getModelName() + "\n" +
@@ -39,6 +39,7 @@ public class Workshop<T extends Car> {
         "Nr Doors: " + unloadedCar.getNrDoors() + "\n" +
         "Color :"  + unloadedCar.getColor() + "\n"
         );
+        return unloadedCar;
     }
 
 }
